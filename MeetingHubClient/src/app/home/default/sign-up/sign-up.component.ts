@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
 
 @Component({
@@ -11,7 +12,7 @@ export class SignUpComponent implements OnInit, OnDestroy {
   formGroup: FormGroup;
   hide: boolean;
 
-  constructor() {
+  constructor(private router:Router) {
     this.hide = true;
     this.formGroup = new FormGroup({
       email: new FormControl('', [
@@ -58,6 +59,13 @@ export class SignUpComponent implements OnInit, OnDestroy {
     // 2 şifre aynı değilse kendimiz bir error tipi oluşturuyoruz.
     this.formGroup.controls['passwordRepeat'].setErrors({ verification: true });
     return false;
+  }
+
+  //devam edecek
+  registerUser(){
+    if(this.checkPassword() && this.formGroup.valid){
+      this.router.navigateByUrl('/home');
+    }
   }
 
   getMessage(

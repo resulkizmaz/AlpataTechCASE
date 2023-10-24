@@ -1,12 +1,16 @@
 section{
-    margin-top: 100px;
+    display: flex;
+    width: 100%;
+    border: 1px solid red;
+    align-items: center;
+    justify-content: center;
 }
 
 
 .form {
     display: flex;
     flex-direction: column;
-    padding: 45px;
+    padding: 30px;
     border-radius: 10px;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
     background-color: white;

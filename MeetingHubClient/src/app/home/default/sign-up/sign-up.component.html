@@ -1,5 +1,5 @@
 <section>
-    <form novalidate class="form">
+    <form [formGroup]="formGroup" novalidate class="form" >
         <div class="area">
             <div class="email">
                 <mat-form-field>
@@ -60,7 +60,7 @@
 
 
         <div class="button">
-            <button routerLink="home" mat-raised-button color="accent">KAYIT OL</button>
+            <button (click)="registerUser" mat-raised-button color="accent">KAYIT OL</button>
         </div>
     </form>    
 </section>
