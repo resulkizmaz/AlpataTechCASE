@@ -1,0 +1,28 @@
+<section>
+    <form novalidate class="form">    
+        <div class="email">
+            <mat-form-field>
+                <input type="text" matInput formControlName="email" placeholder="E-posta" required>
+                <mat-icon matSuffix>supervisor_account</mat-icon>
+                <mat-error>{{getMessage('email')}}</mat-error>
+            </mat-form-field>
+        </div>
+        <div class="password">
+            <mat-form-field>
+                <input [type]="(hide) ? ('password') : ('text')" matInput formControlName="password" placeholder="Şifre" required>
+                <button mat-icon-button matSuffix (click)="hide = !hide">
+                    <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                </button>
+                <mat-error>{{getMessage('password')}}</mat-error>
+            </mat-form-field>
+        </div>
+        <div class="buttons">
+            <div class="button">
+                <button type="submit" mat-raised-button color="accent">GİRİŞ YAP</button>
+            </div>
+            <div class="button">
+                <button routerLink="sign-up" mat-raised-button color="accent">KAYIT OL</button>
+            </div>
+        </div>   
+    </form>    
+</section>

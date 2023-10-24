@@ -1,5 +1,13 @@
 
+.main-layout{
+    background:url('https://www.strety.com/hubfs/images/blog/run-an-effective-team-meeting.png');
+    background-size: cover;
+    background-position: center;
+    
+    /* Arka plan rengi ve şeffaflığı ayarlayın (isteğe bağlı) */
+    background-color: rgba(63, 63, 63, 0.1);
 
+}
 
 .header-band {
     width: 100%;
@@ -11,12 +19,9 @@
     background: linear-gradient(to right, rgb(4, 180, 248), rgb(19, 114, 237), rgb(4, 180, 248), rgb(19, 114, 237));
 }
 
-.menu-container {
-    background-color: #F0F0F0;
-}
-
 .main-container {
     display: flex;
+    background-color: rgba(143, 201, 217, 0.7);
     justify-content: center;
 }
 
@@ -28,8 +33,6 @@
 
     min-height: 80vh;
 }
-
-
 
 
 

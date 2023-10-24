@@ -1,0 +1,22 @@
+section{
+    margin-top: 100px;
+}
+
+
+.form {
+    display: flex;
+    flex-direction: column;
+    padding: 45px;
+    border-radius: 10px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    background-color: white;
+}
+
+
+
+.buttons{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}

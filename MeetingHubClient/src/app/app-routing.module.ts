@@ -2,8 +2,8 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { DefaultComponent } from './home/default/default.component';
 import { SignUpComponent } from './home/default/sign-up/sign-up.component';
-import { SignInComponent } from './home/default/sign-in/sign-in.component';
 import { HomePageComponent } from './home/default/home-page/home-page.component';
+import { LogInComponent } from './home/default/log-in/log-in.component';
 
 
 
@@ -20,13 +20,13 @@ export class AppRoutingModule {
         path:'',
         component: DefaultComponent,
         children: [{
-          path:'sign-in',
-          component:SignInComponent,
+          path:'',
+          component:LogInComponent,
           children:[{
-            path:'authorised',
+            path:'home',
             component: HomePageComponent
           },{
-            path:'unauthorised',
+            path:'log-in',
             component: DefaultComponent
           }]
         },{

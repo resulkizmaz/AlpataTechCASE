@@ -3,11 +3,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,300;1,400;1,500;1,700;1,900&display=swap');
 @import '~@angular/material/prebuilt-themes/indigo-pink.css';
 
-:host {
-    --global-dark-theme-main-bg-color: rgb(26, 36, 48);
-    --global-meloora-logo-start-color: rgb(4, 180, 248);
-    --global-meloora-logo-end-color: rgb(19, 114, 237);
-}
 
 * {
     font-family: 'Roboto', sans-serif;
@@ -38,27 +33,6 @@ hr {
     height: 1px;
 }
 
-.global--center-of-screen {
-    position: fixed;
-    width: fit-content;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    max-height: 80vh;
-    overflow-y: auto;
-}
-
-.global--center-of-screen::-webkit-scrollbar {
-    width: 8px;
-    background-color: transparent;
-
-}
-
-.global--center-of-screen::-webkit-scrollbar-thumb {
-    background-color: gainsboro;
-
-}
-
 html,
 body {
     height: 100%;
@@ -68,26 +42,7 @@ body {
     margin: 0;
     font-family: Roboto, "Helvetica Neue", sans-serif;
 }
-
-
-.global--mat-dialog-backdrop-class {
-    background-color: rgba(0, 0, 0, 0.7) !important;
-}
-
-.global--mat-dialog-panel-class>.mat-dialog-container {
-    padding: 3px !important;
-    border-radius: 10px !important;
-    background-color: #ffffec;
-}
-
-.global--mat-dialog-panel-class-dark-theme>.mat-dialog-container {
-    padding: 3px !important;
-    border-radius: 10px !important;
-    background-color: rgb(59, 73, 92);
-}
-
 .global-light-theme-scrollbar div::-webkit-scrollbar,
-.global-dark-theme-scrollbar div::-webkit-scrollbar,
 body::-webkit-scrollbar{
     width: 7px;
     /* kaydırma çubuğunun genişliği */
@@ -100,88 +55,8 @@ body::-webkit-scrollbar{
     /* kaydırma çubuğunun köşe yarıçapı */
 }
 
-.global-dark-theme-scrollbar div::-webkit-scrollbar-thumb,
-body::-webkit-scrollbar-thumb {
-    border-radius: 10px;
-    background-color: #8c8c8c;
-}
 
 .global-light-theme-scrollbar div::-webkit-scrollbar-track {
     background-color: #8c8c8c;
     /* kaydırma çubuğunun arka plan rengi */
 }
-
-.global-dark-theme-scrollbar div::-webkit-scrollbar-track,
-body::-webkit-scrollbar-track {
-    background-color: #f1f1f1;
-}
-
-
-
-
-
-
-
-
-
-
-.global-m-input-field {
-    padding: 10px 5px;
-}
-
-.global-m-input-field input,
-.global-m-input-field select {
-    border-radius: 3px;
-    font-size: 12px;
-    font-weight: 500;
-    background-color: rgb(236, 236, 236);
-    padding: 3px;
-    width: 100%;
-    border: 1px solid #8c8c8c;
-    color: #1f1f1f;
-}
-
-.global-m-input-field-error {
-    border: 2px solid rgb(255, 31, 76) !important;
-}
-
-.global-m-input-field-success {
-    border: 2px solid green !important;
-}
-
-
-.global-multiple-select-overlay {
-    margin-top: 45px;
-    margin-left: 0;
-    margin-right: 0;
-}
-
-.tooltip-warning.mat-tooltip {
-    background-color: rgb(78, 68, 70);
-}
-
-.global-custom-mini-fab .mat-mini-fab .mat-button-wrapper {
-    padding: 0 !important;
-    line-height: normal !important;
-}
-
-.global-bg-primary {
-    background-color: rgb(255, 136, 0);
-    color: white;
-}
-
-.global-admin-title {
-    background: linear-gradient(to right, rgb(95, 123, 143), rgb(224, 218, 224));
-    padding: 10px 15px 5px 15px;
-}
-
-.global-admin-title>h2 {
-    font-size: 15px;
-    font-family: 500;
-    color: white;
-    display: inline-flex;
-    align-items: center;
-    gap: 7px;
-}
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

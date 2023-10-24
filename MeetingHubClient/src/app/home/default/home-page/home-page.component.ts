@@ -1,4 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Subject } from 'rxjs';
 import { AuthenticationService } from 'src/app/services/authentication/authentication.service';
 
 @Component({
@@ -8,14 +9,17 @@ import { AuthenticationService } from 'src/app/services/authentication/authentic
 })
 export class HomePageComponent implements OnInit, OnDestroy {
 
-  constructor(private auth:AuthenticationService) {}
+  constructor(private auth:AuthenticationService) {
+    
+  }
 
+  ngOnSubscribe = new Subject();
   ngOnInit(): void {
-    console.log(this.auth.SignIn);
   }
 
 
   ngOnDestroy(): void {
-
+    this.ngOnSubscribe.next(true);
+    this.ngOnSubscribe.complete();
   }
 }

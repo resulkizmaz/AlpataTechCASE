@@ -23,7 +23,11 @@ GO
 CREATE TABLE Users(
 	UserID			INT				IDENTITY(1,1),
 	Email			NVARCHAR(255)	NOT NULL,
-	Authority		VARCHAR(16)		NOT NULL	DEFAULT('USER'),	--Kullanýcý ADMIN, USER, MANAGER olabilir.
+	UserName		NVARCHAR (64)	NOT NULL,
+	UserSurname		NVARCHAR (128)	NOT NULL,
+	Phone			VARCHAR(11)		NOT NULL,
+	ImagePath		NVARCHAR(MAX),
+	Authority		VARCHAR(16)		NOT NULL,	--Kullanýcý ADMIN, USER, MANAGER olabilir.
 	IsApproved		BIT,						--Onay süreci olabilir.
 	IsBanned		BIT				NOT NULL	DEFAULT (0),
 	CreationDate	DATETIME		NOT NULL	DEFAULT (GETDATE()),

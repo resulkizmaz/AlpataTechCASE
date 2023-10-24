@@ -7,22 +7,41 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HeaderComponent } from './home/header/header.component';
 import { FooterComponent } from './home/footer/footer.component';
 import { DefaultComponent } from './home/default/default.component';
-import { SignInComponent } from './home/default/sign-in/sign-in.component';
 import { SignUpComponent } from './home/default/sign-up/sign-up.component';
+
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+import { LogInComponent } from './home/default/log-in/log-in.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    SignInComponent,
+    LogInComponent,
     SignUpComponent,
     HeaderComponent,
     FooterComponent,
-    DefaultComponent
+    DefaultComponent,
+    LogInComponent
   ],
   imports: [
     BrowserModule, 
     AppRoutingModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    MatPaginatorModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule,
+    MatCheckboxModule,
+    MatIconModule,
+    MatButtonModule,
+    MatTooltipModule
+
   ],
   providers: [],
   bootstrap: [AppComponent]

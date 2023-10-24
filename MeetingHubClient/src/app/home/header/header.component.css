@@ -1,0 +1,49 @@
+section{
+    width: 100%;
+    padding: 25px 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;    
+    background-color: rgb(158, 198, 215);
+}
+
+.container{
+    display: flex;
+    width: 1500px;
+    height: 100px;
+    justify-content: space-between;
+    background-color: rgba(255,255,255,0.08);
+    border-radius: 15px;
+}
+
+.part{
+    width: 750px;
+    display: flex;
+    align-items: center;
+    padding: 0 15px;
+}
+
+h1{
+    margin-top: 15px;
+    margin-left: 5px;
+    font-weight: 600;
+    font-size: 32px;
+    color: whitesmoke;
+}
+.image{
+    width: 100px;
+    height: 100px;
+}
+
+
+.image > a,
+.image > a > img{
+    max-width: 100%;
+    max-height: 100%;    
+}
+
+.right{
+    width: 750px;
+    flex-direction: row-reverse;
+    gap: 20px;
+}
