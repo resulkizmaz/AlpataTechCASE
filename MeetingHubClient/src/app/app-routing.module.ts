@@ -5,43 +5,34 @@ import { SignUpComponent } from './home/default/sign-up/sign-up.component';
 import { HomePageComponent } from './home/default/home-page/home-page.component';
 import { LogInComponent } from './home/default/log-in/log-in.component';
 
-
-
 @NgModule({
   imports: [RouterModule.forRoot(AppRoutingModule.getRoutes())],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
 export class AppRoutingModule {
   constructor() {}
 
-  public static getRoutes(){
+  public static getRoutes() {
     const routes: Routes = [
       {
-        path:'',
+        path: '',
         component: DefaultComponent,
-        children: [{
-          path:'',
-          component:LogInComponent,
-          children:[{
-            path:'home',
-            component: HomePageComponent
-          },{
-            path:'log-in',
-            component: DefaultComponent
-          }]
-        },{
-          path: 'sign-up',
-          component:SignUpComponent
-        }]
+        children: [
+          {
+            path: 'log-in',
+            component: LogInComponent,
+          },
+          {
+            path: 'home',
+            component: HomePageComponent,
+          },
+          {
+            path: 'sign-up',
+            component: SignUpComponent,
+          },
+        ]
       }
-
-
-
-
-
     ];
     return routes;
   }
-
-
- }
+}

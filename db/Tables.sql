@@ -61,6 +61,8 @@ CREATE TABLE UserSessions(
 );
 GO
 
+
+
 CREATE TABLE Meetings(
 	[MeetingID]		INT				IDENTITY(1,1),
 	[UserID]		INT				NOT NULL,

@@ -8,7 +8,7 @@ import { AuthenticationService } from './authentication/authentication.service';
 export class MarshService {
 
   public readonly baseURL : string = "https://localhost44344/api/";
-  constructor(private http: HttpClient, private auth : AuthenticationService) {
+  constructor(private http: HttpClient) {
     
     
    }

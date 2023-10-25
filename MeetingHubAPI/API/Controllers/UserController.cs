@@ -11,7 +11,7 @@ namespace API.Controllers
     public class UserController : ControllerBase
     {
         private readonly IAuthenticationService authenticationService;
-        UserController(IAuthenticationService authenticationService)
+        public UserController(IAuthenticationService authenticationService)
         {
             this.authenticationService = authenticationService;
         }
@@ -27,5 +27,16 @@ namespace API.Controllers
                     return BadRequest(result);
             
         }
+        //[HttpGet]
+        //[Route("log-in")]
+        //public async Task<IActionResult> RegisterUser([FromQuery] string email, [FromQuery] string password)
+        //{
+        //    var result = await this.authenticationService.RegisterUser(registerRequest);
+        //    if (result.Success)
+        //        return Ok(result);
+        //    else
+        //        return BadRequest(result);
+
+        //}
     }
 }

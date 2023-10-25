@@ -1,7 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Subject } from 'rxjs';
+import { Subject, takeUntil } from 'rxjs';
+import { AuthenticationService } from 'src/app/services/authentication/authentication.service';
 
 @Component({
   selector: 'app-sign-up',
@@ -12,7 +13,7 @@ export class SignUpComponent implements OnInit, OnDestroy {
   formGroup: FormGroup;
   hide: boolean;
 
-  constructor(private router:Router) {
+  constructor(private router:Router, private auth : AuthenticationService) {
     this.hide = true;
     this.formGroup = new FormGroup({
       email: new FormControl('', [
@@ -22,7 +23,6 @@ export class SignUpComponent implements OnInit, OnDestroy {
         
       password: new FormControl('', [
         Validators.required,
-        Validators.minLength(10),
         Validators.maxLength(64),
         Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{10,64}$/)]),
 
@@ -30,6 +30,7 @@ export class SignUpComponent implements OnInit, OnDestroy {
 
       name: new FormControl('', [
         Validators.required,
+        Validators.maxLength(64),
         Validators.pattern(/^[a-zA-Z ĞÜŞİÖÇğüşıöç]{2,100}$/)]),
 
       surname: new FormControl('', [
@@ -68,15 +69,38 @@ export class SignUpComponent implements OnInit, OnDestroy {
       const formData = new FormData();
 
       formData.append('email',this.formGroup.controls['email'].value);
-      this.router.navigateByUrl('/home');
+      formData.append('email',this.formGroup.controls['email'].value);
+      formData.append('email',this.formGroup.controls['email'].value);
+      formData.append('email',this.formGroup.controls['email'].value);
+      formData.append('email',this.formGroup.controls['email'].value);
+      formData.append('email',this.formGroup.controls['email'].value);
+
+
     }
+  }
+
+  postRegister(data:FormData){
+
+    this.auth.registerMerchant(data).pipe(
+      takeUntil(this.ngOnSubscribe)).subscribe({
+          next: (response)=>{
+            
+        },
+        error: (err) => {
+
+        }
+      });
+
   }
 
   getMessage(
     message: 'email' | 'password' | 'passwordRepeat' | 'name' | 'surname' | 'phone') {
       switch (message) {
         case 'email':
-          return 'Email geçersiz.';
+          if (this.formGroup.controls['email'].hasError('required')) return 'Email alanı boş bırakılamaz.';
+          else if (this.formGroup.controls['email'].hasError('maxlength')) return 'Email en fazla 255 karakterden oluşmalıdır.';
+          else if (this.formGroup.controls['email'].hasError('pattern')) return 'Email geçersiz.';
+          else return ''; 
         case 'password':
           if (this.formGroup.controls['password'].hasError('required')) return 'Şifre alanı boş bırakılamaz.';
           else if (this.formGroup.controls['password'].hasError('maxlength')) return 'Şifre en fazla 64 karakterden oluşmalıdır.';

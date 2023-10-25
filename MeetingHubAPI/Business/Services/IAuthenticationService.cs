@@ -10,6 +10,6 @@ namespace Business
 {
     public interface IAuthenticationService
     {
-        Task<FormResult<UserRegisterResult>> RegisterUser(RegisterRequest request);
+        Task<FormResult<string>> RegisterUser(RegisterRequest request);
     }
 }

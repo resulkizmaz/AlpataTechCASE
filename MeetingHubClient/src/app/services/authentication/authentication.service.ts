@@ -1,7 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { MarshService } from '../marsh.service';
-import { FormResponseModel } from 'src/app/interfaces/general-response-model';
+import { UserLoginRequest, UserLoginResult, UserRegisterResult } from 'src/app/models/User.model';
+import { query } from '@angular/animations';
 
 @Injectable({
   providedIn: 'root',
@@ -14,9 +15,12 @@ export class AuthenticationService {
   }
 
   registerMerchant(data: FormData) {
-    return this.http.post<string>(this.marsh.baseURL + 'register-user', data);
+    return this.http.post<UserRegisterResult>(this.marsh.baseURL + 'user/register-user',data);
   }
 
+  requestLogIn(data: UserLoginRequest){
+    return this.http.get<UserLoginResult>(this.marsh.baseURL +`user/log-in?email=${data.email}&password=${data.password}`);
+  }
 
 
 

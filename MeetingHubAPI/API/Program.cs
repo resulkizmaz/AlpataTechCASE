@@ -2,12 +2,16 @@ using Business;
 using DataAccess;
 using DataAccess.Providers;
 using DataAccess.Services;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
 
-builder.Services.AddAuthentication().AddJwtBearer();
+
 
 
 // Add services to the container.
@@ -20,11 +24,36 @@ builder.Services.AddScoped<IMeetingDataAccessService, MeetingDataAccessProvider>
 
 //Business Layer
 builder.Services.AddScoped<IAuthenticationService, AuthenticationManager>();
-builder.Services.AddScoped<IMeetingService,IMeetingService>();
+builder.Services.AddScoped<IMeetingService,MeetingManager>();
+builder.Services.AddScoped<IUploadService, UploadManager>();
 
 
 //Singleton
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
+
+
+var key = Encoding.UTF8.GetBytes(builder.Configuration["ApplicationSettings:JwT:Secret"].ToString());
+builder.Services.AddAuthentication(x =>
+{
+    x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+    x.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+}).AddJwtBearer(x =>
+{
+    x.RequireHttpsMetadata = false;
+    x.SaveToken = true;
+    x.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
+    {
+        ValidateIssuerSigningKey = true,
+        IssuerSigningKey = new SymmetricSecurityKey(key),
+        ValidateIssuer = true,
+        ValidateAudience = false,
+        ValidateLifetime = true,
+        ClockSkew = TimeSpan.Zero,
+        ValidIssuer = builder.Configuration["ApplicationSettings:JwT:ValidIssuer"]
+    };
+});
 
 
 builder.Services.AddControllers();
@@ -37,7 +66,6 @@ builder.Services.AddCors(options =>
         .AllowAnyMethod();
     });
 });
-
 
 
 

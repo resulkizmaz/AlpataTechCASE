@@ -81,8 +81,7 @@ GO
 
 --select * from LogDBErrors
 
-
-CREATE PROC LogInUser(@email NVARCHAR(255), @passwordHash CHAR(88), @passwordSalt CHAR(88))
+CREATE PROC LogInUser(@email NVARCHAR(255))
 AS
 BEGIN	
 	
@@ -90,15 +89,17 @@ BEGIN
 	SELECT @validID = u.UserID 
 		FROM Users AS u 
 		INNER JOIN UserCredentials AS uc ON u.UserID = uc.UserID
-			WHERE u.Email = @email AND @passwordHash = uc.PasswordHash AND @passwordSalt = uc.PasswordSalt;
+			WHERE u.Email = @email;
 	IF(@validID IS NOT NULL)
 	BEGIN
 		
-		--REFRESH TOKEN DONDURULECEK
+		--RefreshToken döndürülebilir.
 
-		SELECT CAST(1 AS bit) AS [Success], @email AS [Email],@passwordHash AS [PasswordHash], @passwordSalt AS [PasswordSalt],
+		SELECT CAST(1 AS bit) AS [Success], @email AS [Email], uc.PasswordHash AS [PasswordHash], uc.PasswordSalt AS [PasswordSalt],
 				u.Phone AS [Phone],CONCAT(u.UserName,' ',u.UserSurname) AS [Name], u.ImagePath AS [ProfileImagePath]
 				FROM Users AS u
+				INNER JOIN UserCredentials AS uc ON uc.UserID = u.UserID
+					WHERE u.Email = @email
 	END
 	ELSE
 	BEGIN

@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Subject } from 'rxjs';
+import { UserLoginRequest } from 'src/app/models/User.model';
 
 @Component({
   selector: 'app-log-in',
@@ -20,19 +21,28 @@ export class LogInComponent implements OnInit, OnDestroy {
         
       password: new FormControl('', [
         Validators.required,
-        Validators.minLength(10),
         Validators.maxLength(64),
-        Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{10,64}$/)])});
+        Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/)])});
   }
  
   ngOnSubscribe = new Subject();
-  ngOnInit(): void {}
+  ngOnInit(): void {
 
+
+  }
+
+  logInRequest(data : UserLoginRequest){
+    
+  }
+  
   getMessage(
     message: 'email' | 'password') {
       switch (message) {
         case 'email':
-          return 'Email geçersiz.';
+          if (this.formGroup.controls['email'].hasError('required')) return 'Email alanı boş bırakılamaz.';
+          else if (this.formGroup.controls['email'].hasError('maxlength')) return 'Email en fazla 255 karakterden oluşmalıdır.';
+          else if (this.formGroup.controls['email'].hasError('pattern')) return 'Email geçersiz.';
+          else return '';   
         case 'password':
           if (this.formGroup.controls['password'].hasError('required')) return 'Şifre alanı boş bırakılamaz.';
           else if (this.formGroup.controls['password'].hasError('maxlength')) return 'Şifre en fazla 64 karakterden oluşmalıdır.';
@@ -40,6 +50,8 @@ export class LogInComponent implements OnInit, OnDestroy {
           else return '';      
     }
   }
+
+
 
   ngOnDestroy(): void {
     this.ngOnSubscribe.next(true);

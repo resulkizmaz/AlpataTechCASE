@@ -26,22 +26,22 @@ namespace DataAccess
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer("server=DESKTOP-9I3O269\\MSSQLSERVER03;database=MeetHubDB;trusted_connection=true;");
+                optionsBuilder.UseSqlServer("server=DESKTOP-9I3O269\\MSSQLSERVER03;database=MeetingHUB;trusted_connection=true;TrustServerCertificate=true;");
                 base.OnConfiguring(optionsBuilder);
             }
-
         }
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<UserLoginResult>().HasNoKey();
-            modelBuilder.Entity<UserRegisterResult>().HasNoKey();
+            modelBuilder.Entity<UserRegisterResult>().HasNoKey(); 
         }
 
 
         //DB SET
         public DbSet<UserLoginResult> UserLoginResults { get; set; }
         public DbSet<UserRegisterResult> UserRegisterResults { get; set; }
-
+         
     }
 }
