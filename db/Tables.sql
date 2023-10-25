@@ -27,9 +27,6 @@ CREATE TABLE Users(
 	UserSurname		NVARCHAR (128)	NOT NULL,
 	Phone			VARCHAR(11)		NOT NULL,
 	ImagePath		NVARCHAR(MAX),
-	Authority		VARCHAR(16)		NOT NULL,	--Kullanýcý ADMIN, USER, MANAGER olabilir.
-	IsApproved		BIT,						--Onay süreci olabilir.
-	IsBanned		BIT				NOT NULL	DEFAULT (0),
 	CreationDate	DATETIME		NOT NULL	DEFAULT (GETDATE()),
 	UpdateDate		DATETIME		NOT NULL	DEFAULT (GETDATE()),
 	LoginDate		DATETIME
@@ -39,7 +36,6 @@ CREATE TABLE Users(
 	CONSTRAINT		PK_Users_UserID		PRIMARY KEY (UserID),
 	CONSTRAINT		UX_Users_Email		UNIQUE(Email),
 	INDEX			IX_Users_Email		NONCLUSTERED(Email ASC),
-	INDEX			IX_Users_IsApproved	NONCLUSTERED(IsApproved	DESC)	-- Onay süreci varsa en son onaylanan baþta görüntülenmek istenebilir.
 	);
 GO
 
@@ -54,7 +50,31 @@ CREATE TABLE UserCredentials(
 );
 GO
 
+CREATE TABLE UserSessions(
+	UserID			INT				NOT NULL,
+	RefreshToken	CHAR(64),
+	RefreshTokenExp	DATETIME,
+	UpdateDate		DATETIME		NOT NULL	DEFAULT(GETDATE()),
+
+	CONSTRAINT	PK_UserSessions_UserID	PRIMARY KEY(UserID),
+	CONSTRAINT	FK_UserSessions_UserID	FOREIGN KEY(UserID)		REFERENCES Users(UserID),
+);
+GO
+
 CREATE TABLE Meetings(
-	
+	[MeetingID]		INT				IDENTITY(1,1),
+	[UserID]		INT				NOT NULL,
+	[MeetingName]	NVARCHAR(255)	NOT NULL,
+	[StartDate]		DATETIME		NOT NULL,
+	[EndDate]		DATETIME		NOT NULL,
+	[Description]	NVARCHAR(MAX),
+	[DocPath]		NVARCHAR(MAX),
+	[CreationDate]	DATETIME		NOT NULL		DEFAULT(GETDATE())
+
+	CONSTRAINT		PK_Meetings_MeetingID		PRIMARY KEY(MeetingID),
+	CONSTRAINT		FK_Meetings_UserID			FOREIGN KEY(UserID)		REFERENCES Users(UserID),
+	INDEX			IX_Meetings_MeetingName		NONCLUSTERED (MeetingName	ASC),
+	INDEX			IX_Meetings_StartDate		NONCLUSTERED (StartDate	ASC),
+	INDEX			IX_Meetings_EndDate			NONCLUSTERED (EndDate	ASC)
 );
 GO
