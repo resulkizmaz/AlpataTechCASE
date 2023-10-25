@@ -1,0 +1,19 @@
+.form {
+    display: flex;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    background-color: white;
+    gap: 15px;
+}
+.area{    
+    display: flex;
+    flex-direction: column;
+}
+.profileImage{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 50px 0px;
+    border: 1px solid black;
+}

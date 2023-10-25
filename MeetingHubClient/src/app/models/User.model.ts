@@ -5,6 +5,5 @@ export class UserInfo {
         public Name:string,
         public Surname:string,
         public Phone:string,
-        public AccessToken: string,
-        public RefreshToken: string) {}
+        public ProfileImage : File) {}
   }

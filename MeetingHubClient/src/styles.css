@@ -60,3 +60,6 @@ body::-webkit-scrollbar{
     background-color: #8c8c8c;
     /* kaydırma çubuğunun arka plan rengi */
 }
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
