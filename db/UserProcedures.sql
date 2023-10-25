@@ -29,6 +29,8 @@ BEGIN
 END
 GO
 
+
+
 CREATE PROC UserRegister ( 
 @email NVARCHAR(255), @passwordHash CHAR(88), @passwordSalt CHAR(88),
 @phone VARCHAR(11), @imagePath NVARCHAR(MAX),
@@ -45,23 +47,63 @@ BEGIN TRY
 	BEGIN
 		--Entry User
 		DECLARE @userID INT;
-		INSERT INTO Users(Email)
-			VALUES(@email, );
+		INSERT INTO Users(Email,UserName,UserSurname,Phone,ImagePath)
+			VALUES(@email, @name,@surname,@phone,@imagePath);
 		SET @userID = SCOPE_IDENTITY();
 		--Entry UserCredentials
 		INSERT INTO UserCredentials(UserID, PasswordHash, PasswordSalt)
 			VALUES(@userID, @passwordHash, @passwordSalt);
 	
-	SELECT @userID AS [UserID], @phone AS [Phone], @name AS [Name], @surname AS [Surname], 
-		   @imagePath AS [ImagePath]
-
+	
+	
+	SELECT CAST(1 AS bit) AS [Success], @name AS [Name];
 	END
-
+	ELSE
+	BEGIN
+		SELECT CAST(0 AS bit) AS [Success], NULL AS [Name];
+	END
 
 	COMMIT TRANSACTION UserRegister
 END TRY
 BEGIN CATCH
-	ROLLBACK TRANSACTION UserRegister
 	INSERT INTO dbo.LogDBErrors(Username, ErrorNumber, ErrorState, ErrorSeverity, ErrorLine, ErrorProcedure, ErrorMessage, ErrorDatetime)
 		VALUES (SUSER_SNAME(), ERROR_NUMBER(), ERROR_STATE(), ERROR_SEVERITY(), ERROR_LINE(), ERROR_PROCEDURE(), ERROR_MESSAGE(), GETDATE());
+	ROLLBACK TRANSACTION UserRegister
 END CATCH
+GO
+--exec UserRegister @email = null ,@passwordHash='', @passwordSalt ='',
+--@phone = null, @imagePath ='asdasdasdasdasdas',
+--@name = 'Resul', @surname = 'KIZMAZ';
+
+--select * from Users
+--select * from UserCredentials
+--select * from UserSessions
+
+--select * from LogDBErrors
+
+
+CREATE PROC LogInUser(@email NVARCHAR(255), @passwordHash CHAR(88), @passwordSalt CHAR(88))
+AS
+BEGIN	
+	
+	DECLARE @validID INT;
+	SELECT @validID = u.UserID 
+		FROM Users AS u 
+		INNER JOIN UserCredentials AS uc ON u.UserID = uc.UserID
+			WHERE u.Email = @email AND @passwordHash = uc.PasswordHash AND @passwordSalt = uc.PasswordSalt;
+	IF(@validID IS NOT NULL)
+	BEGIN
+		
+		--REFRESH TOKEN DONDURULECEK
+
+		SELECT CAST(1 AS bit) AS [Success], @email AS [Email],@passwordHash AS [PasswordHash], @passwordSalt AS [PasswordSalt],
+				u.Phone AS [Phone],CONCAT(u.UserName,' ',u.UserSurname) AS [Name], u.ImagePath AS [ProfileImagePath]
+				FROM Users AS u
+	END
+	ELSE
+	BEGIN
+		SELECT CAST(0 AS bit) AS [Success], NULL AS [Email], NULL AS [PasswordHash], NULL AS [PasswordSalt],
+				NULL AS [Phone], NULL AS [Name], NULL AS [ProfileImagePath];
+	END
+END
+GO

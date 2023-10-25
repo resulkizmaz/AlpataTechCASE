@@ -9,11 +9,22 @@
 .area{    
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
 }
+
 .profileImage{
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 50px 0px;
+    border-radius: 15px;
     border: 1px solid black;
+}
+.profileImage input{
+    padding: 45px 15px;
+}
+.button{
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }

@@ -1,6 +1,6 @@
 ﻿namespace Entity
 {
-    public class MeetingRequest : IDTO
+    public class MeetingRequest :IDTO
     {
 
     }

@@ -8,6 +8,13 @@ namespace Core.Rules
 {
     public sealed class Rules
     {
+        private static readonly Rules instance = new Rules();
 
+        public static Rules Instance { get { return instance; } }
+
+        private Rules()
+        {
+
+        }
     }
 }

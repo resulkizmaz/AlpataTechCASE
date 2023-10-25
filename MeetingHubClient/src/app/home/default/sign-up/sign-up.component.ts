@@ -64,6 +64,10 @@ export class SignUpComponent implements OnInit, OnDestroy {
   //devam edecek
   registerUser(){
     if(this.checkPassword() && this.formGroup.valid){
+
+      const formData = new FormData();
+
+      formData.append('email',this.formGroup.controls['email'].value);
       this.router.navigateByUrl('/home');
     }
   }
