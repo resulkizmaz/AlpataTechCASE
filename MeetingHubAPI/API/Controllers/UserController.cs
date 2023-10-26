@@ -27,16 +27,15 @@ namespace API.Controllers
                     return BadRequest(result);
             
         }
-        //[HttpGet]
-        //[Route("log-in")]
-        //public async Task<IActionResult> RegisterUser([FromQuery] string email, [FromQuery] string password)
-        //{
-        //    var result = await this.authenticationService.RegisterUser(registerRequest);
-        //    if (result.Success)
-        //        return Ok(result);
-        //    else
-        //        return BadRequest(result);
-
-        //}
+        [HttpGet]
+        [Route("log-in")]
+        public async Task<IActionResult> RegisterUser([FromQuery] string email, [FromQuery] string password)
+        {
+            var result = await this.authenticationService.UserLogIn(email, password);
+            if (result.Success)
+                return Ok(result);
+            else
+                return BadRequest(result);
+        }
     }
 }

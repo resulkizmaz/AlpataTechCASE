@@ -1,4 +1,5 @@
 using Business;
+using Core.Server.JWT;
 using DataAccess;
 using DataAccess.Providers;
 using DataAccess.Services;
@@ -32,7 +33,7 @@ builder.Services.AddScoped<IUploadService, UploadManager>();
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
 
-
+//JWT Configurations
 var key = Encoding.UTF8.GetBytes(builder.Configuration["ApplicationSettings:JwT:Secret"].ToString());
 builder.Services.AddAuthentication(x =>
 {
@@ -43,7 +44,7 @@ builder.Services.AddAuthentication(x =>
 {
     x.RequireHttpsMetadata = false;
     x.SaveToken = true;
-    x.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
+    x.TokenValidationParameters = new TokenValidationParameters
     {
         ValidateIssuerSigningKey = true,
         IssuerSigningKey = new SymmetricSecurityKey(key),
@@ -55,6 +56,8 @@ builder.Services.AddAuthentication(x =>
     };
 });
 
+// JWT'lere tüm controller'lardan Dependecy Injection ile ulaþmak için.
+builder.Services.Configure<JwtConfigurationsModel>(builder.Configuration.GetSection("ApplicationSettings"));
 
 builder.Services.AddControllers();
 builder.Services.AddCors(options =>

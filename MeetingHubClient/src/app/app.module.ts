@@ -20,6 +20,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { LogInComponent } from './home/default/log-in/log-in.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,13 @@ import { HttpClientModule } from '@angular/common/http';
     MatButtonModule,
     MatTooltipModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    ToastrModule.forRoot({
+      timeOut: 3000, // Time to close the toaster (in milliseconds)
+      positionClass: 'toast-top-right', // Toast position
+      closeButton: true, // Show close button
+      progressBar: true, // Show progress bar
+    }),
 
   ],
   providers: [],

@@ -8,7 +8,7 @@ namespace Core.Rules
         public static string SHA512InBase64(string input)
         {
             var bytes = Encoding.UTF8.GetBytes(input);
-            using (var hash = System.Security.Cryptography.SHA512.Create())
+            using (var hash = SHA512.Create())
             {
                 byte[] hashedInputBytes = hash.ComputeHash(bytes);
                 return Convert.ToBase64String(hashedInputBytes);

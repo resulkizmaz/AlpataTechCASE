@@ -11,5 +11,6 @@ namespace Business
     public interface IAuthenticationService
     {
         Task<FormResult<string>> RegisterUser(RegisterRequest request);
+        Task<FormResult<LoginFTO>> UserLogIn(string email, string password);
     }
 }

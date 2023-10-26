@@ -36,12 +36,16 @@ namespace DataAccess
         {
             modelBuilder.Entity<UserLoginResult>().HasNoKey();
             modelBuilder.Entity<UserRegisterResult>().HasNoKey(); 
+            modelBuilder.Entity<GetMeetingResult>().HasNoKey();
+            modelBuilder.Entity<UserInfoResult>().HasNoKey();
         }
 
 
         //DB SET
         public DbSet<UserLoginResult> UserLoginResults { get; set; }
         public DbSet<UserRegisterResult> UserRegisterResults { get; set; }
+        public DbSet<GetMeetingResult> GetMeetingResults { get; set; }
+        public DbSet<UserInfoResult> GetUserInfoResults { get; set; }
          
     }
 }

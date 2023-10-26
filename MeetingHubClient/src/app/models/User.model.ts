@@ -9,24 +9,20 @@ export class UserRegisterRequest {
   ) {}
 }
 export class UserRegisterResult {
-  constructor(public userID: number, public success: boolean) {}
+  constructor(public name: string, public success: boolean) {}
 }
 
-export class UserLoginResult{
-  constructor(public email :string,
-    public phone:string,
-    public name : string,
-    public image: File ) {}
+export class UserLoginResult {
+  constructor(
+    public success: boolean | null,
+    public email: string | null,
+    public phone: string | null,
+    public name: string | null, 
+    public image: File | null,
+    public token: string | null
+  ) {}
 }
 
 export class UserLoginRequest {
-  constructor(public email: string,
-    public password: string) {}
-  
+  constructor(public email: string, public password: string) {}
 }
-
-// export interface IUserAuthenticateResponse {
-//   token: string | undefined;
-//   refreshToken: string | undefined;
-//   refreshTokenDate: Date | undefined;
-// }

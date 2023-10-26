@@ -12,7 +12,8 @@
         </div>
         <div class="right part">
             <a (click)="logOut()"><mat-icon>power_settings_new</mat-icon></a>
-            <a routerLink="/home"><mat-icon >home</mat-icon> </a>
+            <a [routerLink]="isLogged ? '/home' : '/log-in'" ><mat-icon>home</mat-icon></a>
+
         </div>
     </div>
 </section>

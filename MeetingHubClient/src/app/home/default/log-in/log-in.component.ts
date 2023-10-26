@@ -1,7 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Subject } from 'rxjs';
+import { Router } from '@angular/router';
+import { Subject, takeUntil } from 'rxjs';
 import { UserLoginRequest } from 'src/app/models/User.model';
+import { AuthenticationService } from 'src/app/services/authentication/authentication.service';
 
 @Component({
   selector: 'app-log-in',
@@ -11,8 +13,11 @@ import { UserLoginRequest } from 'src/app/models/User.model';
 export class LogInComponent implements OnInit, OnDestroy {
   hide: boolean;
   formGroup : FormGroup;
-  constructor() {
+
+
+  constructor(private auth:AuthenticationService, private router:Router) {
     this.hide = true;
+    
     this.formGroup = new FormGroup({
       email: new FormControl('', [
         Validators.required,
@@ -31,8 +36,34 @@ export class LogInComponent implements OnInit, OnDestroy {
 
   }
 
-  logInRequest(data : UserLoginRequest){
-    
+
+  log_IN(){
+    if(this.formGroup.valid){
+      const userLoginData = new UserLoginRequest(
+        this.formGroup.controls['email'].value,
+        this.formGroup.controls['password'].value
+      );
+      this.logInRequest(userLoginData);
+    }
+  }
+
+  logInRequest(data: UserLoginRequest) {
+    this.auth.requestLogIn(data).pipe(takeUntil(this.ngOnSubscribe))
+      .subscribe({
+        next: (response) => {
+          console.log('Response :',response);
+          if(response.success){
+            this.auth.userData = response;
+            localStorage.setItem('token',response.token!)
+            this.auth.isLogged = true;
+            this.router.navigateByUrl('/home');
+          }
+        },
+        error: (err) => {
+          console.warn(err);
+          this.auth.isLogged = false;
+        }
+      });
   }
   
   getMessage(

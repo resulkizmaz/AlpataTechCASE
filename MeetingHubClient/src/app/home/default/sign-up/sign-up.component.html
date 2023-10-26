@@ -2,10 +2,10 @@
     <form [formGroup]="formGroup" novalidate class="form" >        
         <div class="area">
             <div class="profileImage">
-                <input  placeholder="Image" required type="file">
+                <input formControlName="image" placeholder="Image" required type="file">
             </div>
             <div class="phone">
-                <mat-form-field>
+                <mat-form-field class="full-with">
                     <input type="text" matInput formControlName="phone" placeholder="Phone" required>
                     <mat-icon matSuffix>supervisor_account</mat-icon>
                     <mat-error>{{getMessage('phone')}}</mat-error>
@@ -15,14 +15,14 @@
         
         <div class="area">
             <div class="email">
-                <mat-form-field>
+                <mat-form-field class="full-with">
                     <input type="text" matInput formControlName="email" placeholder="E-posta" required>
                     <mat-icon matSuffix>supervisor_account</mat-icon>
                     <mat-error>{{getMessage('email')}}</mat-error>
                 </mat-form-field>
             </div>
             <div class="password">
-                <mat-form-field>
+                <mat-form-field class="full-with">
                     <input [type]="(hide) ? ('password') : ('text')" matInput formControlName="password" placeholder="Şifre" required>
                     <button mat-icon-button matSuffix (click)="hide = !hide">
                         <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
@@ -31,7 +31,7 @@
                 </mat-form-field>
             </div>
             <div class="password-repeat">
-                <mat-form-field>
+                <mat-form-field class="full-with">
                     <input [type]="(hide) ? ('password') : ('text')" matInput formControlName="passwordRepeat" placeholder="Şifre Tekrarı" required>
                     <button mat-icon-button matSuffix (click)="hide = !hide">
                         <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
@@ -43,21 +43,21 @@
 
         <div class="area">
             <div class="name">
-                <mat-form-field>
+                <mat-form-field class="full-with">
                     <input type="text" matInput formControlName="name" placeholder="Name" required>
                     <mat-icon matSuffix>supervisor_account</mat-icon>
                     <mat-error>{{getMessage('name')}}</mat-error>
                 </mat-form-field>
             </div>
             <div class="surname">
-                <mat-form-field>
+                <mat-form-field class="full-with">
                     <input type="text" matInput formControlName="surname" placeholder="Surname" required>
                     <mat-icon matSuffix>supervisor_account</mat-icon>
                     <mat-error>{{getMessage('surname')}}</mat-error>
                 </mat-form-field>
             </div>
             <div class="button">
-                <button (click)="registerUser" mat-raised-button color="primary">KAYIT OL</button>
+                <button type="submit" (click)="registerUser()" mat-raised-button color="primary">KAYIT OL</button>
             </div>
         </div>
     

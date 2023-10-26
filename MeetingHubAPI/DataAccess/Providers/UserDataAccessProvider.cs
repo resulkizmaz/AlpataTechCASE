@@ -22,5 +22,19 @@ namespace DataAccess.Providers
                     new SqlParameter("surname", register.Surname)).ToListAsync()).FirstOrDefault();
         }
 
+        public async Task<UserLoginResult> UserLogIn(string email)
+        {
+            using (MeetHubDB db = new MeetHubDB())
+                return (await db.UserLoginResults.FromSqlRaw("EXEC LogInUser @email",
+                    new SqlParameter("email",email)).ToListAsync()).FirstOrDefault();
+        }
+
+        public async Task<UserInfoResult> GetPasswordInfo (string email)
+        {
+            using (MeetHubDB db = new MeetHubDB())
+                return (await db.GetUserInfoResults.FromSqlRaw("EXEC GetPassword @email",
+                    new SqlParameter("email",email)).ToListAsync()).FirstOrDefault();
+        }
+
     }
 }
