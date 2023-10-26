@@ -26,7 +26,7 @@ export class SignUpComponent implements OnInit, OnDestroy {
       password: new FormControl('', [
         Validators.required,
         Validators.maxLength(64),
-        Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{10,64}$/),
+        Validators.pattern(/^(?='.*[a-z])(?=.*[A-Z])(?=.*\d).+$/),
       ]),
 
       passwordRepeat: new FormControl('', [Validators.required]),
@@ -39,7 +39,7 @@ export class SignUpComponent implements OnInit, OnDestroy {
 
       surname: new FormControl('', [
         Validators.required,
-        Validators.pattern(/^[a-zA-Z ĞÜŞİÖÇğüşıöç]{2,100}$/),
+        Validators.pattern(/^[a-zA-Z ĞÜŞİÖÇğüşıöç]{2,128}$/),
       ]),
 
       phone: new FormControl('', [
@@ -47,8 +47,7 @@ export class SignUpComponent implements OnInit, OnDestroy {
         Validators.pattern(
           /^(0)([23458]{1})([0-9]{2})\s?([0-9]{3})\s?([0-9]{2})\s?([0-9]{2})$/
         ),
-      ]),
-      image: new FormControl('', [Validators.required]),
+      ])
     });
   }
 
@@ -84,7 +83,6 @@ export class SignUpComponent implements OnInit, OnDestroy {
       formData.append('name', this.formGroup.controls['name'].value);
       formData.append('surname', this.formGroup.controls['surname'].value);
       formData.append('phone', this.formGroup.controls['phone'].value);
-      formData.append('profileImage', this.formGroup.controls['image'].value);
       this.postRegister(formData);
     }
   }
@@ -132,7 +130,7 @@ export class SignUpComponent implements OnInit, OnDestroy {
         else if (this.formGroup.controls['password'].hasError('maxlength'))
           return 'Şifre en fazla 64 karakterden oluşmalıdır.';
         else if (this.formGroup.controls['password'].hasError('pattern'))
-          return 'Şifre en az bir küçük harf, bir büyük harf, bir rakam ve bir sembol içermelidir. İzin verilen semboller @.$!%*?&+-.';
+          return 'Şifre zayıf \'@.$!%*?&+-.\'';
         else return '';
       case 'passwordRepeat':
         if (this.formGroup.controls['passwordRepeat'].hasError('required'))

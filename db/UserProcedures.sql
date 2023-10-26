@@ -81,6 +81,8 @@ GO
 
 --select * from LogDBErrors
 
+
+
 CREATE PROC LogInUser(@email NVARCHAR(255))
 AS
 BEGIN	
@@ -95,16 +97,35 @@ BEGIN
 		
 		--RefreshToken döndürülebilir.
 
-		SELECT CAST(1 AS bit) AS [Success], @email AS [Email], uc.PasswordHash AS [PasswordHash], uc.PasswordSalt AS [PasswordSalt],
-				u.Phone AS [Phone],CONCAT(u.UserName,' ',u.UserSurname) AS [Name], u.ImagePath AS [ProfileImagePath]
+		SELECT CAST(1 AS bit) AS [Success], @email AS [Email], u.Phone AS [Phone],
+		CONCAT(u.UserName,' ',u.UserSurname) AS [Name], u.ImagePath AS [ProfileImagePath]
+				FROM Users AS u
+					WHERE u.Email = @email
+	END
+	ELSE
+	BEGIN
+		SELECT CAST(0 AS bit) AS [Success], NULL AS [Email], NULL AS [Phone], NULL AS [Name], NULL AS [ProfileImagePath];
+	END
+END
+GO
+
+CREATE PROC GetPassword (@email NVARCHAR(255))
+AS
+BEGIN
+	DECLARE @validID INT;
+	SELECT @validID = u.UserID 
+		FROM Users AS u 
+		INNER JOIN UserCredentials AS uc ON u.UserID = uc.UserID
+			WHERE u.Email = @email;
+	IF(@validID IS NOT NULL)
+	BEGIN
+		SELECT CAST(1 AS bit) AS [Success], uc.PasswordHash AS [PasswordHash], uc.PasswordSalt AS [PasswordSalt]
 				FROM Users AS u
 				INNER JOIN UserCredentials AS uc ON uc.UserID = u.UserID
 					WHERE u.Email = @email
 	END
 	ELSE
 	BEGIN
-		SELECT CAST(0 AS bit) AS [Success], NULL AS [Email], NULL AS [PasswordHash], NULL AS [PasswordSalt],
-				NULL AS [Phone], NULL AS [Name], NULL AS [ProfileImagePath];
+		SELECT CAST(1 AS bit) AS [Success], NULL AS [PasswordHash], NULL AS [PasswordSalt]
 	END
 END
-GO
